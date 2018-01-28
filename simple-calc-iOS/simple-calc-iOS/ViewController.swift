@@ -12,27 +12,6 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var ioTextField: UITextField!
     
-//    @IBOutlet weak var btnOne: UIButton!
-//    @IBOutlet weak var btnTwo: UIButton!
-//    @IBOutlet weak var btnThree: UIButton!
-//    @IBOutlet weak var btnFour: UIButton!
-//    @IBOutlet weak var btnFive: UIButton!
-//    @IBOutlet weak var btnSix: UIButton!
-//    @IBOutlet weak var btnSeven: UIButton!
-//    @IBOutlet weak var btnEight: UIButton!
-//    @IBOutlet weak var btnNine: UIButton!
-//    @IBOutlet weak var btnZero: UIButton!
-//    @IBOutlet weak var btnPlus: UIButton!
-//    @IBOutlet weak var btnMinus: UIButton!
-//    @IBOutlet weak var btnMultiply: UIButton!
-//    @IBOutlet weak var btnDivide: UIButton!
-//    @IBOutlet weak var btnCount: UIButton!
-//    @IBOutlet weak var btnAvg: UIButton!
-//    @IBOutlet weak var btnFact: UIButton!
-//    @IBOutlet weak var btnEquals: UIButton!
-//    @IBOutlet weak var btnClear: UIButton!
-//    @IBOutlet weak var btnMod: UIButton!
-    
     var combinedDisplay : String = "" {
         didSet{
             ioTextField.text = combinedDisplay
@@ -149,7 +128,6 @@ class ViewController: UIViewController {
         }
     }
     
-    
     @IBAction func handleFact(_ sender: UIButton) {
         if(op == "" && !numberBuilder.isEmpty){
             numComplete()
@@ -161,7 +139,6 @@ class ViewController: UIViewController {
     @IBAction func handleClear(_ sender: UIButton) {
         reset()
     }
-    
     
     func numComplete (){
         numbers.append(Int(numberBuilder) ?? 0)
@@ -187,21 +164,18 @@ class ViewController: UIViewController {
         switch op{
         case "+":
             let sum = numbers[0] + numbers[1]
-            print(sum)
             combinedDisplay = String(sum)
             numberBuilder = String(sum)
             numbers = []
             op = ""
         case "-":
             let sub = numbers[0] - numbers[1]
-            print(sub)
             combinedDisplay = String(sub)
             numberBuilder = String(sub)
             numbers = []
             op = ""
         case "*":
             let times = numbers[0] * numbers[1]
-            print(times)
             combinedDisplay = String(times)
             numberBuilder = String(times)
             numbers = []
@@ -214,7 +188,6 @@ class ViewController: UIViewController {
                 reset()
             }else{
                 let divide = numbers[0] / numbers[1]
-                print(divide)
                 combinedDisplay = String(divide)
                 numberBuilder = String(divide)
                 numbers = []
@@ -222,7 +195,6 @@ class ViewController: UIViewController {
             }
         case "%":
             let mod = numbers[0] % numbers[1]
-            print(mod)
             combinedDisplay = String(mod)
             numberBuilder = String(mod)
             numbers = []
@@ -254,9 +226,7 @@ class ViewController: UIViewController {
                 combinedDisplay = String(fact)
                 numberBuilder = String(fact)
             }
-        default: return
+        default: reset()
         }
     }
-
 }
-
