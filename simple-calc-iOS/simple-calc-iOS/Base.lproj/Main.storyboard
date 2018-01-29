@@ -192,6 +192,15 @@
                                     <action selector="handleMod:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ytb-aw-h0e"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PVR-Jy-DhC">
+                                <rect key="frame" x="246" y="342" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <state key="normal" title="."/>
+                                <connections>
+                                    <action selector="pressedDot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="svZ-FQ-sUR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

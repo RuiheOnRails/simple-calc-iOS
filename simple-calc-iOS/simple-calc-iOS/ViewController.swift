@@ -18,9 +18,9 @@ class ViewController: UIViewController {
         }
     }
     var numberBuilder : String = ""
-    var numbers: [Int] = []
+    var numbers: [Double] = []
     var op: String = ""
-    
+    var decimalMode: Bool = false;
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -69,6 +69,16 @@ class ViewController: UIViewController {
     
     @IBAction func pressedZero(_ sender: UIButton) {
         appender("0")
+    }
+    
+    @IBAction func pressedDot(_ sender: UIButton) {
+        if(decimalMode == false){
+            if(numberBuilder == "" ){
+                appender("0")
+            }
+            decimalMode = true
+            appender(".")
+        }
     }
     
     @IBAction func handleAdd(_ sender: UIButton) {
@@ -141,8 +151,9 @@ class ViewController: UIViewController {
     }
     
     func numComplete (){
-        numbers.append(Int(numberBuilder) ?? 0)
+        numbers.append(Double(numberBuilder) ?? 0)
         numberBuilder = ""
+        decimalMode = false
     }
     
     func appender(_ s: String){
@@ -155,6 +166,13 @@ class ViewController: UIViewController {
         numberBuilder = ""
         op = ""
         numbers = []
+    }
+    
+    func warningDivModZero(){
+        let alert = UIAlertController(title: "Error", message: "Can not divide/mod by zero", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`))
+        self.present(alert, animated: true, completion: nil)
+        reset()
     }
     
     @IBAction func handleCalc(_ sender: UIButton) {
@@ -182,10 +200,7 @@ class ViewController: UIViewController {
             op = ""
         case "/":
             if(numbers[1] == 0){
-                let alert = UIAlertController(title: "Error", message: "Can not divide by zero", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`))
-                self.present(alert, animated: true, completion: nil)
-                reset()
+                warningDivModZero()
             }else{
                 let divide = numbers[0] / numbers[1]
                 combinedDisplay = String(divide)
@@ -194,23 +209,27 @@ class ViewController: UIViewController {
                 op = ""
             }
         case "%":
-            let mod = numbers[0] % numbers[1]
-            combinedDisplay = String(mod)
-            numberBuilder = String(mod)
-            numbers = []
-            op = ""
+            if(numbers[1] == 0){
+                warningDivModZero()
+            }else{
+                let mod = Int(numbers[0]) % Int(numbers[1])
+                combinedDisplay = String(mod)
+                numberBuilder = String(mod)
+                numbers = []
+                op = ""
+            }
         case "count":
             let count = numbers.count
             reset()
             combinedDisplay = String(count)
             numberBuilder = String(count)
         case "avg":
-            let count = numbers.count
-            var sum = 0
+            let count: Double = Double(numbers.count)
+            var sum: Double = 0.0
             numbers.forEach({ number in
                 sum += number
             })
-            let avg = sum/count
+            let avg:Double = sum/count
             reset()
             combinedDisplay = String(avg)
             numberBuilder = String(avg)
@@ -219,7 +238,7 @@ class ViewController: UIViewController {
                 reset()
             }else{
                 var fact = 1
-                for i in 1...numbers[0]{
+                for i in 1...Int(numbers[0]){
                     fact *= i
                 }
                 reset()
